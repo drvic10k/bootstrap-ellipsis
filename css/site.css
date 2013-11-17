@@ -1,0 +1,28 @@
+﻿.containterA {
+    padding: 8px;
+    text-align: justify;
+}
+
+div.columnB {
+    width: 250px;
+    padding: 8px;
+    text-align: justify;
+}
+
+div.columnC {
+    padding: 8px;
+    width: 300px;
+    text-align: justify;
+}
+
+a {
+    cursor: pointer;
+}
+
+div.inline h1 {
+    display: inline;
+}
+
+div.inline a {
+    margin: 0 0 20px 20px;
+}

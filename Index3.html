@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"/>
+    <link href="css/site.css" rel="stylesheet"/>
+    <link href="css/bootstrap-ellipsis.css" rel="stylesheet"/>
+    <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-ellipsis.js"></script>
+
+    <script>
+        $(function () {
+
+            $("#containterA").html(fullText);
+
+        });
+
+        function randOrd() {
+            return (Math.round(Math.random()) - 0.5);
+        }
+
+        var fullText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum";
+
+        function getRandomText() {
+            return fullText.split(" ").sort(randOrd).join(" ");
+        }
+
+        function generateMe(fixed) {
+
+            var width = 0;
+
+            $('#containerB').html("");
+            $('#containerC').html("");
+
+            var ellipsisColumnB = 0, ellipsisColumnC = 0, DOMColumnB = 0, DOMColumnC = 0;
+
+            for (var i = 0, max = 1000; i < max; i++) {
+                var now = window.performance.now();
+                var el = $("<div class='columnB alert alert-block alert-success'></div>").appendTo("#containerB").append(getRandomText());
+                if (fixed) {
+                    width = width || el.width();
+                }
+                DOMColumnB += (window.performance.now() - now);
+                now = window.performance.now();
+                el.ellipsis({maxLine:5, trigger: 'mouseenter', fixedWidth: width});
+                ellipsisColumnB += (window.performance.now() - now);
+            }
+            width = 0;
+            for (var i = 0, max = 1000; i < max; i++) {
+                var now = window.performance.now();
+                var el = $("<div class='columnC alert alert-block alert-info'></div>").appendTo("#containerC").append(getRandomText());
+                DOMColumnC += (window.performance.now() - now);
+                if (fixed) {
+                    width = width || el.width();
+                }
+                now = window.performance.now();
+                el.ellipsis({maxLine:3, fixedWidth: width});
+                ellipsisColumnC += (window.performance.now() - now);
+            }
+
+            $("#DOMColumnB").text(Math.round(DOMColumnB) + " ms");
+            $("#ellipsisColumnB").text(Math.round(ellipsisColumnB) + " ms");
+            $("#DOMColumnC").text(Math.round(DOMColumnC) + " ms");
+            $("#ellipsisColumnC").text(Math.round(ellipsisColumnC) + " ms");
+        }
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <div class="inline">
+            <h1>Bootstrap Ellipsis</h1>
+            <a href="Index.html" class="btn btn-success">Bootstrap 2.3.2</a>
+            <a href="Index3.html" class="btn btn-success">Bootstrap 3.0.2</a>
+        </div>
+        <p class="lead">Performance demonstration</p>
+        <a href="https://github.com/drvic10k/bootstrap-ellipsis" class="btn btn-success">See on GitHub</a>
+    </div>
+    <div class="well">
+        <button id="variable" class="btn btn-primary" onclick="generateMe(false)">Generate with variable width</button>
+        <button id="fixed" class="btn btn-primary" onclick="generateMe(true)">Generate with fixed width</button>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Full text:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Ellipsised width 250px, 5 rows:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Ellipsised width 300px, 3 rows:</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <p>DOM creation time for 1000 elements:
+                    <col-md- style="font-weight: bold;" id="DOMColumnB"></col-md->
+                </p>
+                <p>Ellipsis time for 1000 elements:
+                    <col-md- style="font-weight: bold;" id="ellipsisColumnB"></col-md->
+                </p>
+            </div>
+            <div class="col-md-4">
+                <p>DOM creation time for 1000 elements:
+                    <col-md- style="font-weight: bold;" id="DOMColumnC"></col-md->
+                </p>
+                <p>Ellipsis time for 1000 elements:
+                    <col-md- style="font-weight: bold;" id="ellipsisColumnC"></col-md->
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div id="containterA" class="containterA alert alert-block alert-warning"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="containerB">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="containerC">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
