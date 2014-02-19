@@ -5,7 +5,7 @@ fast way to add ellipsis for overflowing text
 version 1.0.0
 
 This plug-in is based on this project by [dobiatowski] (https://github.com/dobiatowski/jQuery.FastEllipsis).  
-See the performance demonstration [here](http://htmlpreview.github.io/?https://github.com/drvic10k/bootstrap-ellipsis/blob/gh-pages/Index.html).
+See the performance demonstration [here](https://drvic10k.github.com/bootstrap-ellipsis).
 
 ####Dependencies:
 [jQuery] (http://jquery.com/)  
