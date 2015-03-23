@@ -45,7 +45,19 @@ $.fn.extend({
 function tooltip(e) {
     $(e.target).popover({
         content: $(e.target).attr('data-ellipsis'),
-        placement: 'bottom',
+        placement: function (context, source) {
+            var position = $(source).position();
+            if (position.left > 515) {
+                return "left";
+            }
+            if (position.left < 515) {
+                return "right";
+            }
+            if (position.top < 110) {
+                return "bottom";
+            }
+            return "top";
+        }
         trigger: 'hover'
     }).popover('show');
 }
